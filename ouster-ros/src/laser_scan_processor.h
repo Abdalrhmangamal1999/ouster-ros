@@ -41,7 +41,7 @@ class LaserScanProcessor {
         std::transform(pixel_shift_by_row.begin(),
                            pixel_shift_by_row.end(),
                            pixel_shift_by_row.begin(),
-                           [](auto c) { return c - number_columns*0.5; });
+                           [&number_columns](auto c) { return c - number_columns*0.5; });
         
     }
 
