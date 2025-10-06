@@ -36,12 +36,13 @@ class LaserScanProcessor {
             scan_msgs[i] = std::make_shared<sensor_msgs::msg::LaserScan>();
 
         const auto fw = impl::parse_version(info.fw_rev);
-        if (fw.major == 2 && fw.minor < 4) {
-            std::transform(pixel_shift_by_row.begin(),
+        auto number_columns=ouster::sensor::n_cols_of_lidar_mode(ld_mode);
+        
+        std::transform(pixel_shift_by_row.begin(),
                            pixel_shift_by_row.end(),
                            pixel_shift_by_row.begin(),
-                           [](auto c) { return c - 31; });
-        }
+                           [](auto c) { return c - number_columns*0.5; });
+        
     }
 
    private:
